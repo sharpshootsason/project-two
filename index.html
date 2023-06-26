@@ -1,0 +1,51 @@
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <img src="#">
+  <br />
+  <br />
+  <button class="getGiphy">Get New Cat Giphy</button>
+  <br />
+  <br />
+
+  <label for="search">Search For Specifics</label>
+  <input type="text" id="search" class="search" placeholder="Search. . ."/>
+  <button class="search-button">Search</button>
+  <script>
+
+    const img = document.querySelector('img')
+
+    const catGiphy = document.querySelector(".getGiphy")
+
+    const searchButton = document.querySelector(".search-button")
+
+   searchButton.addEventListener('click', fetchSearchGiphy);
+
+   function fetchSearchGiphy() {
+
+    let searchTerm = document.getElementById("search").value;
+    if (searchTerm ==='') {
+      searchTerm = 'random';
+    }
+    fetch('https://api.giphy.com/v1/gifs/translate?api_key=5wtXYllfqtx1frhEsv6Ja6saroFFGoaO&s=' + searchTerm, {mode:'cors'})
+        .then(function(response) {
+            return(response.json());
+        })
+        .then(function(response) {
+            img.src = response.data.images.original.url;
+        })
+        .catch(function(err) {
+          console.log(
+            'you have entered a search term that fetched no giphy. try again!')
+            err
+          ;
+        });
+   };
+   
+  </script>
+</body>
+</html>
